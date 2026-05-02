@@ -10,12 +10,12 @@ check_na(x)
 \item{x}{A numeric vector of any length}
 }
 \value{
-A numeric vector without NA values
+A numeric vector without NA and NaN values
 }
 \description{
 Check for missing values in the input vector(NA)
 }
 \examples{
-check_na(5,7,NA) # triggers NA warning and removes NA
-try(check_na(NA,NA)) # throws an error
+check_na(c(5,7,NA)) # triggers NA warning and removes NA
+try(check_na(c(NA,NA))) # throws an error
 }

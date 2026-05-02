@@ -6,7 +6,7 @@
 #' @export
 #'
 #' @examples
-#' x < - c(10,20,30,40,50)
+#' x <- c(10,20,30,40,50)
 #' calc_mean(x) # return 30
 #' # Edge cases - return error
 #' try(calc_mean(c())) # empty vector
@@ -27,6 +27,7 @@ calc_mean <- function(vals){
 #'
 #' @returns Median value of the numeric vector
 #' @export
+#' @importFrom stats median
 #'
 #' @examples
 #' calc_median(c(1, 2, 3, 4, 5)) # return 3
@@ -49,17 +50,18 @@ calc_median <- function(vals){
 #'
 #' @returns Mode value in the numeric vector, multiple modes
 #'  or return 0 when no mode is found
-#'
+#' @export
 #' @examples
-#' calc_mode(2,4,5,7,8,10) # return 0 and warning that no mode is found
-#' calc_mode(2,2,3,4,4,5,7) # return two modes (2 & 4) and a message
-#' calc_mode(3,5,63,17,3,99) # return 3
+#' calc_mode(c(2,4,5,7,8,10)) # return 0 and warning that no mode is found
+#' calc_mode(c(2,2,3,4,4,5,7)) # return two modes (2 & 4) and a message
+#' calc_mode(c(3,5,63,17,3,99)) # return 3
 #' # Edge cases - return error
 #' try(calc_mode(c())) # empty vector
 #' try(calc_mode(c("a", "b", 5))) # character vector
 #' try(calc_mode(c(NA,NA,NA))) # removes NA and vector is empty
 #' # Throws a warning, input length equals 1
 #' try(calc_mode(c(4))) # return 4
+
 calc_mode <- function(vals) {
   check_vals <- validate_vector(vals)
   unique_vals <- unique(check_vals)

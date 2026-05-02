@@ -9,11 +9,10 @@ Authors@R: c(
       role = c("aut", "cre")
     )
   )
-Description: The package calculates statistics such as mean, median, mode, first quantile (25%),
-    third quantile (75%), and interquantile range (IQR). It handles special cases such as empty vectors,
+Description: The package calculates statistics such as mean, median, mode, first quartile (25%),
+    third quartile (75%), and interquantile range (IQR). It handles special cases such as empty vectors,
     NA values and single value vectors.
-    Continuation lines should be indented.
-License: What license is it under?
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.3

@@ -16,6 +16,6 @@ Numeric vector
 Checks the length of the vector
 }
 \examples{
-check_single_value(23,44,5,68)
-try(check_single_value(5)) # displays a warning
+check_single_value(c(23,44,5,68))
+try(check_single_valuec((5))) # displays a warning
 }

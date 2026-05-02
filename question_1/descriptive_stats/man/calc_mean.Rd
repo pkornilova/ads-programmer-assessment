@@ -16,7 +16,7 @@ Mean value of a numeric vector
 Calculate mean to 2 dp
 }
 \examples{
-x < - c(10,20,30,40,50)
+x <- c(10,20,30,40,50)
 calc_mean(x) # return 30
 # Edge cases - return error
 try(calc_mean(c())) # empty vector

@@ -17,13 +17,13 @@ Mode value in the numeric vector, multiple modes
 Calculate mode
 }
 \examples{
-calc_mode(2,4,5,7,8,10) # return 0 and warning that no mode is found
-calc_mode(2,2,3,4,4,5,7) # return two modes (2 & 4) and a message
-calc_mode(3,5,63,17,3,99) # return 3
+calc_mode(c(2,4,5,7,8,10)) # return 0 and warning that no mode is found
+calc_mode(c(2,2,3,4,4,5,7)) # return two modes (2 & 4) and a message
+calc_mode(c(3,5,63,17,3,99)) # return 3
 # Edge cases - return error
 try(calc_mode(c())) # empty vector
 try(calc_mode(c("a", "b", 5))) # character vector
 try(calc_mode(c(NA,NA,NA))) # removes NA and vector is empty
-Throws a warning, input length equals 1
+# Throws a warning, input length equals 1
 try(calc_mode(c(4))) # return 4
 }

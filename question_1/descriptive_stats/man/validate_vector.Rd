@@ -16,6 +16,6 @@ Numeric vector
 Combine functions above to handle edge cases (NA, single value, character)
 }
 \examples{
-validate_vector(5,4,55,88,23, NA, 32) # returns c(5,4,55,88,23,32)
-try(validate_vector(NA, "c", 6,2,3,1)) #throws error
+validate_vector(c(5,4,55,88,23, NA, 32)) # returns c(5,4,55,88,23,32)
+try(validate_vector(c(NA, "c", 6,2,3,1))) #throws error
 }

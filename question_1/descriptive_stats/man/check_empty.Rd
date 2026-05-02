@@ -16,6 +16,6 @@ Numeric vector
 Check if input vector is empty
 }
 \examples{
-check_empty(12,4,5,6,7) # returns c(12,4,5,6,7)
+check_empty(c(12,4,5,6,7)) # returns c(12,4,5,6,7)
 try(check_empty()) # throws an error
 }

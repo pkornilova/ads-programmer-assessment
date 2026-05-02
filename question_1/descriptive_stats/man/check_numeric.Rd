@@ -16,8 +16,8 @@ A numeric vector
 Check for non-numeric (character, Boolean, infinite) values in the input vector
 }
 \examples{
-check_numeric(5,5,6,7) # returns c(5,5,6,7)
-try(check_numeric(3,4,5,M,N)) # throws an error
-try(check_numeric(Inf,-Inf) # throws an error
-try(check_numeric(TRUE,TRUE,FALSE) # throws an error and avoids R conversion to 0 and 1
+check_numeric (c(5,5,6,7)) # returns c(5,5,6,7)
+try(check_numeric(c(3,4,5,M,N))) # throws an error
+try(check_numeric(c(Inf,-Inf))) # throws an error
+try(check_numeric(c(TRUE,TRUE,FALSE)))# throws an error and avoids R conversion to 0 and 1
 }

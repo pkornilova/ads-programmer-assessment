@@ -6,6 +6,7 @@
 #' @returns A single numeric values that cuts of the first 25% of the data sorted in ascending order.
 #' If a single value in the input, returns a warning and the value.
 #' @export
+#' @importFrom stats quantile
 #'
 #' @examples
 #' x <- c(10,20,30,40,50)
@@ -28,7 +29,7 @@ calc_q1 <- function(vals) {
 #' @returns A single numeric value that cuts of the first 75% of the data sorted in ascending order.
 #' If a single value in the input, returns a warning and the value.
 #' @export
-#'
+#' @importFrom stats quantile
 #' @examples
 #' x <- c(10,20,30,40,50)
 #' calc_q3(x) # return 40
@@ -48,6 +49,7 @@ calc_q3 <- function(vals) {
 #' @returns A single numeric value of interquartile range of the input values.
 #' If a single value in the input, returns a warning and the value.
 #' @export
+#' @importFrom stats quantile
 #'
 #' @examples
 #' x <- c(10,20,30,40,50)
