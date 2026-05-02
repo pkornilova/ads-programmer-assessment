@@ -1,6 +1,21 @@
-install.packages(c("sdtm.oak", "admiral","pharmaverseraw"))
-lapply(c("sdtm.oak", "admiral", "dplyr", "pharmaverseraw"), library, character.only = TRUE)
-library("pharmaversesdtm")
+#==============================================================================
+# Study:        CDISCPILOT01
+# Program:      02_create_ds_domain.R
+# Domain:       DS - Disposition
+# Purpose:      Create SDTM DS domain from pharmaverse raw data using controlled 
+#               terminology
+#
+# Input:        pharmaverseraw::ds_raw
+#               pharmaversesdtm::dm
+#               sdtm_ct.csv
+#
+# Output:       ds
+#
+# Author:       Polina Kornilova
+# Date:         02-05-2026
+#==============================================================================
+install.packages(c("sdtm.oak", "pharmaverseraw"))
+lapply(c("sdtm.oak", "dplyr", "pharmaverseraw", "pharmaversesdtm"), library, character.only = TRUE)
 
 # Read CT Specification
 study_ct <- read.csv("sdtm_ct.csv", stringsAsFactors = FALSE)
@@ -10,34 +25,11 @@ ds_raw <- pharmaverseraw::ds_raw
 dm <- pharmaversesdtm::dm
 
 # Convert blanks to NAs 
-dm <- admiral::convert_blanks_to_na(dm_raw)
+# Uppercase IT.DSDECOD to match controlled terms in the CT file
+dm <- admiral::convert_blanks_to_na(dm)
 ds_raw <- admiral::convert_blanks_to_na(ds_raw) %>%
-  mutate(`IT.DSDECOD` = toupper(`IT.DSDECOD`))%>%
-  mutate(ds_raw$INSTANCE = toupper(ds_raw$INSTANCE))
+  mutate(`IT.DSDECOD` = toupper(`IT.DSDECOD`))
 
-#Helper function to find values that do not match CT per a specific codelist
-get_no_ct_vals <- function(raw_data, var, spec_ct, ct_lst) {
-  
-  # Pull valid CT terms for the given codelist
-  ct_terms <- spec_ct %>%
-    filter(codelist_code == ct_lst) %>%
-    pull(term_value) %>%
-    toupper()
-  
-  # Find values in specified variable that do not match CT and output as vector 
-  no_ct_vals <- raw_data %>%
-    filter(!is.na(.data[[var]])) %>%
-    filter(!toupper(.data[[var]]) %in% ct_terms) %>%
-    distinct(.data[[var]]) %>%
-    pull(.data[[var]]) %>%
-    toupper()
-  
-  return(no_ct_vals)
-}
-
-# Vector with values for the assign_no_ct() function 
-visit_no_ct <- get_no_ct_vals(ds_raw,"INSTANCE",study_ct,"VISIT")
-dsdecod_no_ct <- get_no_ct_vals(ds_raw,"IT.DSDECOD",study_ct,"C66727")
 
 # derive oak_id_vars
 ds_raw <- ds_raw %>%
@@ -53,7 +45,7 @@ ds <-
     raw_var = "IT.DSTERM",
     tgt_var = "DSTERM"
   )%>%
-#Create DSDECOD an keep "Randomized" values
+#Create DSDECOD and keep "Randomized" values
  hardcode_no_ct(
     raw_dat = condition_add(ds_raw,ds_raw$IT.DSDECOD == "RANDOMIZED"),
     raw_var = "IT.DSDECOD",
@@ -128,18 +120,9 @@ assign_no_ct(
     tgt_val = "OTHER EVENT",
     id_vars = oak_id_vars()
   )%>%
-  # Create VISIT
-  assign_no_ct(
-    raw_dat = ds_raw %>%
-      filter(INSTANCE %in% visit_no_ct),
-    raw_var = "INSTANCE",
-    tgt_var = "VISIT",
-    id_vars = oak_id_vars()
-  )%>%
   # Create VISIT 
   assign_ct(
-    raw_dat = ds_raw %>%
-      filter(!INSTANCE %in% visit_no_ct),
+    raw_dat = ds_raw,
     raw_var = "INSTANCE",
     tgt_var = "VISIT",
     ct_spec = study_ct,
@@ -147,17 +130,8 @@ assign_no_ct(
     id_vars = oak_id_vars()
   )%>%
   # Create VISITNUM
-  assign_no_ct(
-    raw_dat = ds_raw %>%
-      filter(INSTANCE %in% visit_no_ct),
-    raw_var = "INSTANCE",
-    tgt_var = "VISITNUM",
-    id_vars = oak_id_vars()
-  )%>%
-  # Create VISITNUM
   assign_ct(
-    raw_dat = ds_raw %>%
-      filter(!INSTANCE %in% visit_no_ct),
+    raw_dat = ds_raw,
     raw_var = "INSTANCE",
     tgt_var = "VISITNUM",
     ct_spec = study_ct,
@@ -181,12 +155,26 @@ assign_no_ct(
     id_vars = oak_id_vars()
   )
 
-ds_complete <- ds %>%
+# Change VISITNUM values that did not match CT as per CT logic 
+# Derive USUBJID, DOMAIN and STUDYID
+ds <- ds %>%
   mutate(
   STUDYID = ds_raw$STUDY,
   DOMAIN = "DS",
-  USUBJID = paste0("01-", ds_raw$PATNUM)
-  ) %>%
+  USUBJID = paste0("01-", ds_raw$PATNUM),
+  DSTERM = toupper(DSTERM),      
+  DSDECOD = toupper(DSDECOD),
+  VISITNUM = case_when(
+    VISIT == "AMBUL ECG REMOVAL" ~ "3.5",
+    VISIT == "UNSCHEDULED 6.1" ~ "6.1",
+    VISIT == "UNSCHEDULED 1.1" ~ "1.1",
+    VISIT == "UNSCHEDULED 5.1" ~ "5.1",
+    VISIT == "UNSCHEDULED 8.2" ~ "8.2",
+    VISIT == "UNSCHEDULED 4.1" ~ "4.1",
+    TRUE ~ VISITNUM              
+  )) %>%
+  # Derive DSSEQ using DTERM 
+  # Derive DSSTDY using Date/Time of First Study Treatment from DM domain
   derive_seq(tgt_var = "DSSEQ",
              rec_vars = c("USUBJID","DSTERM"))%>%
   derive_study_day(
