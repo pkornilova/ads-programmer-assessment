@@ -1,8 +1,8 @@
 # ------- calc_q1 --------------------------------------------------------------
 # Valid inputs
 test_that("calc_q1() calculates 25th percentile correctly",{
-  expect_equal(calc_q1(c(10,20,30,40,50,60)), 22.5)
-  expect_equal(calc_q1(c(10.5,20.5,30.5,40.5,50.5,60.5)),23)
+  expect_equal(calc_q1(c(10,20,30,40,50,60)), 20)
+  expect_equal(calc_q1(c(10.5,20.5,30.5,40.5,50.5,60.5)),20.5)
 
 })
 
@@ -23,7 +23,7 @@ test_that("calc_q1() handles edge cases", {
   expect_error(calc_q1(c()), "empty")
   expect_warning(calc_q1(c(10, 20, NA, 30, 40, 50, 60)), "missing or underfined values")
   result <- suppressWarnings(calc_q1(c(10, 20, NA, 30, 40,50,60)))
-  expect_equal(result, 22.5)
+  expect_equal(result, 20)
   expect_error(calc_q1(c(TRUE,TRUE,FALSE)), "Input vector must contain only numeric values")
   expect_error(calc_q1(c(1e309, 3,4,5)),"infinite values are not accepted")
   expect_equal(calc_q1(rep(1, 1000000)), 1)
@@ -32,8 +32,8 @@ test_that("calc_q1() handles edge cases", {
 # ------ calc_q3 ---------------------------------------------------------------
 
 test_that("calc_q3() calculates 75th percentile correctly",{
-  expect_equal(calc_q3(c(10,20,30,40,50,60)), 47.5)
-  expect_equal(calc_q3(c(10.5,20.5,30.5,40.5,50.5,60.5)),48)
+  expect_equal(calc_q3(c(10,20,30,40,50,60)), 50)
+  expect_equal(calc_q3(c(10.5,20.5,30.5,40.5,50.5,60.5)),50.5)
 })
 
 test_that("calc_q3() handles input vectors with a single value", {
@@ -51,7 +51,7 @@ test_that("calc_q3() handles edge cases", {
   expect_error(calc_q3(c()), "empty")
   expect_warning(calc_q3(c(10, 20, NA, 30, 40, 50, 60)), "missing or underfined values")
   result <- suppressWarnings(calc_q3(c(10, 20, NA, 30, 40,50,60)))
-  expect_equal(result, 47.5)
+  expect_equal(result,50)
   expect_error(calc_q3(c(TRUE,TRUE,FALSE)), "Input vector must contain only numeric values")
   expect_error(calc_q3(c(1e309, 3,4,5)),"infinite values are not accepted")
   expect_equal(calc_q3(rep(1, 1000000)), 1)
@@ -61,8 +61,8 @@ test_that("calc_q3() handles edge cases", {
 
 # Valid inputs
 test_that("calc_iqr() calculates IQR correctly",{
-  expect_equal(calc_iqr(c(10,20,30,40,50,60)), 25)
-  expect_equal(calc_iqr(c(10.5,20.5,30.5,40.5,50.5,60.5)),25)
+  expect_equal(calc_iqr(c(10,20,30,40,50,60)), 30)
+  expect_equal(calc_iqr(c(10.5,20.5,30.5,40.5,50.5,60.5)),30)
 
 })
 
@@ -90,7 +90,7 @@ test_that("calc_iqr() handles edge cases", {
   expect_error(calc_iqr(c()), "empty")
   expect_warning(calc_iqr(c(10, 20, NA, 30, 40, 50, 60)), "missing or underfined values")
   result <- suppressWarnings(calc_iqr(c(10, 20, NA, 30, 40,50,60)))
-  expect_equal(result, 25)
+  expect_equal(result, 30)
   expect_error(calc_iqr(c(TRUE,TRUE,FALSE)), "Input vector must contain only numeric values")
   expect_error(calc_iqr(c(1e309, 3,4,5)),"infinite values are not accepted")
   expect_equal(calc_iqr(rep(1, 1000000)), 0)

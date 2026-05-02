@@ -18,7 +18,7 @@
 calc_q1 <- function(vals) {
   check_vals <- validate_vector(vals)
 
-  q1 <- unname(quantile(check_vals,0.25))
+  q1 <- unname(quantile(check_vals,0.25,type=2))
   return(q1)
 }
 
@@ -38,7 +38,7 @@ calc_q1 <- function(vals) {
 #' try(calc_q3(c(NA,NA,NA))) # removes NA and vector is empty, throws error
 calc_q3 <- function(vals) {
   check_vals <- validate_vector(vals)
-  q3 <- unname(quantile(check_vals,0.75))
+  q3 <- unname(quantile(check_vals,0.75, type=2))
   return(q3)
 }
 
