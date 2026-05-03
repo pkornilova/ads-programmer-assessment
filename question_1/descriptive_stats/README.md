@@ -20,7 +20,7 @@ You can install the development version of descriptiveStats from [GitHub](https:
 
 ``` r
 install.packages("devtools")
-devtools::install_github("pkornilova/ads-programmer-assessment", subdir = ""question_1/descriptive_stats"")
+devtools::install_github("pkornilova/ads-programmer-assessment", subdir = "question_1/descriptive_stats")
 ```
 ---
 
