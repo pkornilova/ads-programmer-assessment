@@ -1,3 +1,24 @@
+#======================================================================================================================
+# Program:        main.py
+# Purpose:        REST API for Clinical Trial Adverse Event Data
+# Description:    FastAPI application that serves adverse event data from an
+#                 ADAE dataset (CSV format). Provides the following endpoints:
+#                 GET /
+#                 POST /ae-query
+#                 GET  /subject-risk/{subject_id}
+#
+# Input:          adae.csv (path configured via ADAE_CSV environment variable)
+#
+# Output:         JSON responses via REST API endpoints
+# Dependencies:   fastapi, pydantic, pandas, python-dotenv, uvicorn
+#
+# Usage:          uvicorn main:app --reload
+#
+# Author:         Polina Kornilova
+# Date:           30/04/2026
+#======================================================================================================================
+
+# Import libraries
 import os
 from pathlib import Path
 from typing import List, Optional
@@ -6,18 +27,21 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from dotenv import load_dotenv
 
+# Load my environment to get adae filepath
 load_dotenv()
 
+# Load API
 app = FastAPI(
     title="Clinical Trial Data API",
     description="Serves adverse-event data, cohort analysis, and risk scores.",
     version="1.0.0",
 )
 
+# Specify path to the adae dataset from the .env file
 DATA_PATH = Path(os.getenv("ADAE_CSV", "adae.csv"))
 
 def load_data():
-    """Load adae.csv; raise a clear error if the file is missing."""
+    """Load adae.csv; raise an error if the file is missing."""
     if not DATA_PATH.exists():
         raise FileNotFoundError(
             f"Dataset not found at '{DATA_PATH}'. "
@@ -35,7 +59,7 @@ try:
     print(f"Columns: {ADEA_DATA.columns.tolist()}")
 except FileNotFoundError as exc:
     print(f"{exc}")
-    # Return empty ADEA dataset
+    # Return empty dataset
     ADEA_DATA = pd.DataFrame()
 
 
@@ -46,37 +70,21 @@ def require_data():
             status_code=503,
             detail=(
                 "Dataset not available. "
-                "Place adae.csv in the folder with question_5.py and restart the server."
+                "Place adae.csv in the folder with main.py and restart the server."
             ),
         )
     return ADEA_DATA.copy()
 
 
-# class AEQueryRequest(BaseModel):
-#     """
-#     All fields are optional. Missing / null fields are ignored (no filter applied).
-#
-#     Example JSON payload:
-#         {
-#           "severity": ["MILD", "MODERATE"],
-#           "treatment_arm": "Placebo"
-#         }
-#     """
-#     # filters AESEV
-#     severity: Optional[List[str]] = None
-#     # filters ACTARM
-#     treatment_arm: Optional[str] = None
-
+# Create a GET command with welcoming message
 @app.get("/", summary="Health check / welcome")
 def root():
     return {"message": "Clinical Trial Data API is running"}
 
-
-# Request / response models
+# Define request & response models to run post API
 class AEQueryRequest(BaseModel):
     """
     Filters are optional. Missing / null fields are ignored (no filter applied).
-
     Example payload:
         {
           "severity": ["MILD", "MODERATE"],
@@ -93,6 +101,7 @@ class AEQueryResponse(BaseModel):
     count: int
     subjects: List[str]
 
+# Define class for outputting risk score and risk category for subjects
 class RiskScoreResponse(BaseModel):
     usubjid: str
     risk_score: int
@@ -141,6 +150,7 @@ def ae_query(body: AEQueryRequest):
     )
 
 
+# Define a GET command to calculate patient risk score by a specific subject
 @app.get("/subject-risk/{subject_id}", summary="Calculate patient risk score")
 def subject_risk(subject_id: str):
     df = require_data()
