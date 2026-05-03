@@ -2,7 +2,22 @@
 This repo contains my code for the ADS Programmer technical assessment. It provides solutions to 6 questions using R and Python. Please refer to the README file below for a detailed description of each question and the repository structure. Each branch was created to address a specific question (1-6), and once completed, all the information was merged into the main branch.
 
 ## question_1/descriptive_stats
-This folder contains subfolders such as R, man, tests, NAMESPACE and DESCRIPTION files necessary to install and load the package content. The R subfolder contains 3 scripts (utils.R, quartiles.R and central_tendency_calc.R). The tests folder contains test-central_tendency_calc.R and test-quartiles.R for unit testing of functions in the respective scripts. The descriptiveStas package allows the user to calculate mean, median, mode (functions defined in central_tendency_calc.R) and first quartile (Q1), third quartile (Q3) and interquartile range (IQR) (functions defined in quartiles.R). The utils.R script handles all in the input validation (non-numeric values, NAs, NaN, empty vectors). Please refer to the README.md file inside this folder for examples of functions in the package, input validation and handling edge cases.
+This folder contains the `descriptiveStats` R package, including all files 
+necessary to install and load it. The structure follows the standard R package 
+conventions:
+
+- **R/** — contains 3 scripts:
+  - `central_tendency_calc.R` — functions for mean, median, and mode
+  - `quartiles.R` — functions for Q1, Q3, and IQR
+  - `utils.R` — handles input validation (non-numeric values, NAs, NaN, 
+    empty vectors)
+- **tests/** — contains unit tests:
+  - `test-central_tendency_calc.R`
+  - `test-quartiles.R`
+- **NAMESPACE** and **DESCRIPTION** — standard R package metadata files
+
+For usage examples, input validation behaviour, and edge case handling, 
+please refer to the README.md inside this folder.
 
 ## question_2
 This folder contains the sdtm_ct.csv file with CDISC controlled terminology and 02_create_ds_domain.R script. The R script takes input from the sdtm_ct.csv file, pharmaverseraw::ds_raw and pharmaversesdtm::dm to produce a subject disposition (DS) SDTM domain with sdtm.oak and tidyverse packages. It follows the example of the AE domain creation from the pharmaverse website and respective aCRF: https://github.com/pharmaverse/pharmaverseraw/blob/main/vignettes/articles/aCRFs/Subject_Disposition_aCRF.pdf
