@@ -23,10 +23,8 @@
 #==============================================================================================
 
 #Load libraries 
-lapply(c("pharmaverseadam", "dplyr", "ggplot2", "gtsummary"),
-  library,
-  character.only = TRUE
-)
+lapply(c("pharmaverseadam", "dplyr", "ggplot2", "gtsummary"), library, character.only = TRUE)
+
 # Read in raw data
 adsl <- pharmaverseadam::adsl
 adae <- pharmaverseadam::adae 

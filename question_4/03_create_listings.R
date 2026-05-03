@@ -1,8 +1,23 @@
-library(pharmaverseadam)
-library(dplyr)
-library(gtsummary)
-library(gtreg)
-library(gt)
+#==============================================================================================
+# Study:        CDISCPILOT01
+# Program:      03_create_listings.R        
+# Purpose:      Create treatment-emergent adverse events listing by subject 
+#               excluding screen failure patients
+#
+# Input:        pharmaverseadam::adsl, pharmaverseadam::adae
+#       
+#               
+# Outputs:      ae_listings.html
+#               
+#
+# Author:       Polina Kornilova 
+#
+# Date:         29/04/2026
+#
+#==============================================================================================
+
+# Load libraries 
+lapply(c("pharmaverseadam", "dplyr", "gtreg", "gtsummary", "gt"), library, character.only = TRUE)
 
 # Define path where to save the outputs
 output_dir = "~/Documents/assessment_roche/ads-programmer-assessment/question_4/outputs"
@@ -53,7 +68,7 @@ ae_listing <- adae %>%
   gt::tab_options(
     table.font.names = "Courier New",
     table.font.size  = px(12),
-    # Add space between column labels, define table with and hide top line of the header
+    # Add space between column labels, define table width and hide top line of the header
     column_labels.padding = px(10),
     column_labels.padding.horizontal = px(7),
     table.width = pct(100),

@@ -1,3 +1,22 @@
+#==============================================================================================
+# Study:        CDISCPILOT01
+# Program:      02_create_visualizations.R        
+# Purpose:      1. Create AE severity distribution by treatment bar chart
+#               2. Top 10 most frequent AEs (with 95% CI for incidence rates) plot
+#
+# Input:        pharmaverseadam::adsl, pharmaverseadam::adae
+#       
+#               
+# Outputs:      1. ae_severity_dist_plot.png
+#               2. 10_freq_ae_95_ci_plot.png
+#
+# Author:       Polina Kornilova 
+#
+# Date:         29/04/2026
+#
+#==============================================================================================
+
+# Load libraries 
 library(pharmaverseadam)
 library(dplyr)
 library(ggplot2)
@@ -11,7 +30,7 @@ adsl <- pharmaverseadam::adsl
 
 # Create Plot 1: AE severity distribution by treatment bar chart. 
 
-# Create factors levels to output the order for severity and treatment arms 
+# Create factors levels to output in the order for severity and treatment arms 
 # Calculate number of events per treatment arm and severity
 ae_counts <- adae %>%
   mutate(AESEV = factor(AESEV, 
