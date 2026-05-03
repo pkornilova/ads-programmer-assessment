@@ -19,8 +19,24 @@ conventions:
 For usage examples, input validation behaviour, and edge case handling, 
 please refer to the README.md inside this folder.
 
-## question_2
-This folder contains the sdtm_ct.csv file with CDISC controlled terminology and 02_create_ds_domain.R script. The R script takes input from the sdtm_ct.csv file, pharmaverseraw::ds_raw and pharmaversesdtm::dm to produce a subject disposition (DS) SDTM domain with sdtm.oak and tidyverse packages. It follows the example of the AE domain creation from the pharmaverse website and respective aCRF: https://github.com/pharmaverse/pharmaverseraw/blob/main/vignettes/articles/aCRFs/Subject_Disposition_aCRF.pdf
+## question_2 - DS Domain Creation
+
+This folder contains the following files:
+
+- **sdtm_ct.csv** — CDISC controlled terminology used as a reference input
+- **02_create_ds_domain.R** — main R script that produces the Subject 
+  Disposition (DS) SDTM domain
+
+The script takes the following inputs:
+- `sdtm_ct.csv` — controlled terminology
+- `pharmaverseraw::ds_raw` — raw disposition data
+- `pharmaversesdtm::dm` — demographics domain
+
+And produces a standardised DS SDTM domain using the `sdtm.oak` and 
+`tidyverse` packages, following the pharmaverse AE domain creation example.
+
+For reference, the associated aCRF can be found here:  
+https://github.com/pharmaverse/pharmaverseraw/blob/main/vignettes/articles/aCRFs/Subject_Disposition_aCRF.pdf
 
 ## question_3 
 This folder contains the create_adsl.R script, which creates the ADSL dataset with the following derivations: AGEGR9 & AGEGR9N, TRTSDTM, ITTFL, ABNSBPFL, LSTALVDT and CARPOPFL. The derivations are produced with the admiral and tidyverse packages. The input is the dm domain from the pharmaversesdtm::dm.
