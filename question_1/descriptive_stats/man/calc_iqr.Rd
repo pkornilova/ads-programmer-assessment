@@ -18,7 +18,7 @@ Calculate interquartile range (Q3-Q1) of input vector
 }
 \examples{
 x <- c(10,20,30,40,50)
-calc_iqr(x) # return 20
+calc_iqr(x) # return 30
 try(calc_iqr(c())) # empty vector
 try(calc_iqr(c("a", "b", 5))) # character vector
 try(calc_iqr(c(NA,NA,NA))) # removes NA and vector is empty

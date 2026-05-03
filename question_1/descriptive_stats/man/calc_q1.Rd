@@ -18,7 +18,7 @@ Calculate first quartile (25th percentile) of input values
 }
 \examples{
 x <- c(10,20,30,40,50)
-calc_q1(x) # return 20
+calc_q1(x) # return 15
 # Edge cases - return error
 try(calc_q1(c())) # empty vector
 try(calc_q1(c("a", "b", 5))) # character vector

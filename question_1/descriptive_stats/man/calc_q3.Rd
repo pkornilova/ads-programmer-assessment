@@ -18,7 +18,7 @@ Calculate third quartile (75th percentile) of input values
 }
 \examples{
 x <- c(10,20,30,40,50)
-calc_q3(x) # return 40
+calc_q3(x) # return 45
 try(calc_q3(c())) # throws error, empty vector
 try(calc_q3(c("a", "b", 5))) # return error character vector
 try(calc_q3(c(NA,NA,NA))) # removes NA and vector is empty, throws error
