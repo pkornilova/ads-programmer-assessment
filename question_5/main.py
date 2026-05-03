@@ -33,7 +33,7 @@ load_dotenv()
 # Load API
 app = FastAPI(
     title="Clinical Trial Data API",
-    description="Serves adverse-event data, cohort analysis, and risk scores.",
+    description="Serves adverse event data, cohort analysis, and risk scores.",
     version="1.0.0",
 )
 
