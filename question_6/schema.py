@@ -1,13 +1,20 @@
-import os
-import json
-import re
+#========================================================================================================================================
+# File:               schema.py
+#
+# Description:        Reads in adae.csv file, specifies columns that will be relevant for the clinical reviewer in the ae dataset
+#                     Creates a dataset schema with column descriptions, defines LLM role, mapping rules for queries to columns,
+#                     states examples of JSON structured LMM outputs for different queries (numeric, char and datetime objects).
+#
+# Input:              adae.csv file
+# Output:             "filters": [{{"target_column": "<column>", "filter_value": "<value>", "operator": "<operator>"}}]
+# Dependencies:       pandas, dotenv
+#
+# Author:             Polina Kornilova
+# Date:               30/04/2026
+#===========================================================================================================================================
+
 import pandas as pd
 from dotenv import load_dotenv
-from fontTools.misc.cython import returns
-
-from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain_core.messages import HumanMessage
-from langchain_core.prompts import ChatPromptTemplate
 from pandas import read_csv
 load_dotenv()
 

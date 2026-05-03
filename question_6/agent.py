@@ -1,8 +1,24 @@
-from schema import build_system_prompt
-import os
+#==========================================================================================================================
+# File:               agent.py
+#
+# Description:        Creates a class ClinicalTrialDataAgent with class variables llm (input langchain large language
+#                     model of your choice when creating agent object), system_prompt (input dataset schema from schema.py),
+#                     input_df (input adae)
+#                     Class methods: build_prompt, call_lmm, parse_question,
+#                     validate_filter, execute_filter
+#                     ask method returns a dict with "subject_count": len(unique_ids), "subject_ids": unique_ids and
+#                     takes input as a string for a user's question
+#
+# Output:             Creates an agent object of class ClinicalTrialDataAgent
+# Dependencies:       pandas, datetime, re, models from models.py (part of the question_6 folder)
+#
+#
+# Author:         Polina Kornilova
+# Date:           30/04/2026
+#==============================================================================================================================
+
 import pandas as pd
 import datetime
-from langchain_google_genai import ChatGoogleGenerativeAI
 import re
 from models import AEFilter,SingleFilter
 
