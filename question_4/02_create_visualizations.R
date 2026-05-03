@@ -42,6 +42,10 @@ ae_counts <- adae %>%
 
 ae_plot <- ggplot(ae_counts, aes(fill = AESEV, y=counts,x=ACTARM))+
   geom_bar(position="stack", stat="identity")+
+  scale_y_continuous(
+    limits = c(0, 500),       
+    breaks = seq(0, 500, 100)
+    )+
   labs(
     title = "AE severity distribution by treatment",
     x = "Treatment Arm",
