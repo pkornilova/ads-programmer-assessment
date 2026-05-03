@@ -1,0 +1,21 @@
+Package: descriptiveStats
+Type: Package
+Title: Calculating descriptive statistics for numeric vectors
+Version: 0.1.0
+Authors@R: c(
+    person(
+      "Polina", "Kornilova",
+      email = "polina.kornilova2710@gmail.com",
+      role = c("aut", "cre")
+    )
+  )
+Description: The package calculates statistics such as mean, median, mode, first quartile (25%),
+    third quartile (75%), and interquantile range (IQR). It handles special cases such as empty vectors,
+    NA values and single value vectors.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.3.3
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
