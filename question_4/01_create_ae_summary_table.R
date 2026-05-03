@@ -1,15 +1,15 @@
 #==============================================================================================
 # Study:        CDISCPILOT01
 # Program:      01_create_ae_summary_table.R        
-# Purpose:      Create adverse event summary table by system organ class
+# Purpose:      Create an adverse event summary table by system organ class
 #               and preferred term
 #
 # Input:        pharmaverseadam::adsl, pharmaverseadam::adae
 #       
 #               
-# Output:       adsl dataframe
+# Output:       ae_summary_table.html
 #
-# Description:  This program filters treatment emergent adverse events
+# Description:  This program filters treatment-emergent adverse events
 #               (TRTEMFL = "Y") and produces a hierarchical summary table
 #               of AEs by System Organ Class (AESOC) and Preferred Term
 #               (AETERM), grouped by treatment arm (ACTARM). Percentages
