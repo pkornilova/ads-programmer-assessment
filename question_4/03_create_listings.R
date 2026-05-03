@@ -4,7 +4,7 @@
 # Purpose:      Create treatment-emergent adverse events listing by subject 
 #               excluding screen failure patients
 #
-# Input:        pharmaverseadam::adsl, pharmaverseadam::adae
+# Input:        pharmaverseadam::adae
 #       
 #               
 # Outputs:      ae_listings.html
